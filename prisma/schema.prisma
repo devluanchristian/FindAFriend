@@ -51,10 +51,10 @@ model Pet {
   id                  String             @id @default(uuid())
   name                String
   about               String
-  age                 Age
-  dog_size            Dog_Size
-  energy_level        Energy_Level
-  idependencies_Level IdependenciesLevel
+  age                 Age                @default(Filhote)
+  dog_size            Dog_Size           @default(Pequenino)
+  energy_level        Energy_Level       @default(Muito_baixa)
+  idependencies_Level IdependenciesLevel @default(Baixo)
   created_at          DateTime           @default(now())
 
   ong   Ong    @relation(fields: [ongId], references: [id])
@@ -68,7 +68,7 @@ model Ong {
   name          String
   cep           String
   address       String
-  email         String
+  email         String @unique
   phone         String
   password_hash String
 
