@@ -10,12 +10,69 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Dog_Size {
+  Pequenino
+  Medio     @map("Médio")
+  Grande
+}
+
+enum Energy_Level {
+  Muito_baixa @map("Muito Baixa")
+  Baixa
+  Media
+  Alta
+  Muito_Alta  @map("Muito Alta")
+}
+
+enum Space {
+  Amplo
+  Medio   @map("Médio")
+  Pequeno
+}
+
+enum IdependenciesLevel {
+  Baixo @map("Baixo (precisa de companhia sempre)")
+  Medio @map("Médio (precisa de companhia moderada)")
+  Alto  @map("Alto (precisa de companhia constante)")
+}
+
+enum Age {
+  Filhote
+  Jovem
+  Adulto
+}
+
+enum Animal_Type {
+  Cachorro
+  Gato
+}
+
 model Pet {
-  id          String  @id @default(uuid())
-  name        String
-  description String?
-  breed       String? @default("SRD")
-  age         Int
+  id                  String             @id @default(uuid())
+  name                String
+  about               String
+  age                 Age
+  dog_size            Dog_Size
+  energy_level        Energy_Level
+  idependencies_Level IdependenciesLevel
+  created_at          DateTime           @default(now())
+
+  ong   Ong    @relation(fields: [ongId], references: [id])
+  ongId String
 
   @@map("pets")
+}
+
+model Ong {
+  id            String @id @default(uuid())
+  name          String
+  cep           String
+  address       String
+  email         String
+  phone         String
+  password_hash String
+
+  Pet Pet[]
+
+  @@map("ongs")
 }
