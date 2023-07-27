@@ -1,8 +1,8 @@
-import { IOngsRepository } from '@/repositories/@types-ong-repository'
+import { ICreateOngsRepository } from '@/repositories/@types-ong-repository'
 import { Ong } from '@prisma/client'
 import { hash } from 'bcryptjs'
 
-interface IOngsUseCase {
+interface ICreateOngsUseCase {
   name: string
   cep: string
   address: string
@@ -11,12 +11,12 @@ interface IOngsUseCase {
   password: string
 }
 
-interface IOngsUseCaseResponse {
+interface ICreateOngsUseCaseResponse {
   ong: Ong
 }
 
-export class OngsUseCase {
-  constructor(private ongRepository: IOngsRepository) {}
+export class CreateOngsUseCase {
+  constructor(private ongRepository: ICreateOngsRepository) {}
   async execute({
     name,
     address,
@@ -24,7 +24,7 @@ export class OngsUseCase {
     email,
     password,
     phone,
-  }: IOngsUseCase): Promise<IOngsUseCaseResponse> {
+  }: ICreateOngsUseCase): Promise<ICreateOngsUseCaseResponse> {
     // criptografa a senha do usuario
     const password_hash = await hash(password, 6)
 
