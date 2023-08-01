@@ -1,5 +1,6 @@
 import { IPetsRepository } from '@/repositories/@type-pets-repository'
-import { IOngsRepository } from '@/repositories/@types-ong-repository'
+import { ICreateOngsRepository } from '@/repositories/@types-ong-repository'
+
 import {
   Age,
   Dog_Size,
@@ -25,7 +26,7 @@ interface IPetUseCaseResponse {
 export class PetUseCase {
   constructor(
     private petsRepository: IPetsRepository,
-    private ongsRepository: IOngsRepository,
+    private ongsRepository: ICreateOngsRepository,
   ) {}
 
   async execute({

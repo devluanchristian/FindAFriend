@@ -5,13 +5,13 @@ import { CreateOngsUseCase } from './create-ong'
 let ongRepository: InMemoryOngsRepository
 let sut: CreateOngsUseCase
 
-describe('Register Use Case', () => {
+describe('Create Ong Use Case', () => {
   beforeEach(() => {
     ongRepository = new InMemoryOngsRepository()
     sut = new CreateOngsUseCase(ongRepository)
   })
 
-  it('should be able to create a pet', async () => {
+  it('should be able to create ONG', async () => {
     const { ong } = await sut.execute({
       name: 'Aprisco',
       address: 'rua cascais',
