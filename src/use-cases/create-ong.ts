@@ -1,6 +1,7 @@
 import { ICreateOngsRepository } from '@/repositories/@types-ong-repository'
 import { Ong } from '@prisma/client'
 import { hash } from 'bcryptjs'
+import { UserAlreadyExists } from './errors/user-already-exists-errors'
 
 interface ICreateOngsUseCase {
   name: string
@@ -32,7 +33,7 @@ export class CreateOngsUseCase {
     const userEithSameEmail = await this.ongRepository.findById(email)
 
     if (userEithSameEmail) {
-      throw new Error()
+      throw new UserAlreadyExists()
     }
     // cadastra a ONG com as informações recebidas pela requisição
     const ong = await this.ongRepository.create({

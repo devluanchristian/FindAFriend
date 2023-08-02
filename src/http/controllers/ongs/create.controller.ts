@@ -1,3 +1,4 @@
+import { UserAlreadyExists } from '@/use-cases/errors/user-already-exists-errors'
 import { makeCreateOngUseCase } from '@/use-cases/factories/make-create-ong-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
@@ -28,8 +29,8 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
       phone,
     })
   } catch (error) {
-    if (error === true) {
-      return reply.status(409).send({ message: 'Error' })
+    if (error instanceof UserAlreadyExists) {
+      return reply.status(409).send({ message: error.message })
     }
     throw error
   }

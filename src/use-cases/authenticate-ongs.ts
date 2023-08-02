@@ -1,6 +1,7 @@
 import { ICreateOngsRepository } from '@/repositories/@types-ong-repository'
 import { Ong } from '@prisma/client'
 import { compare } from 'bcryptjs'
+import { InvalidCrendetials } from './errors/invalid-credentials-errors'
 
 interface IAuthenticateOngUseCase {
   email: string
@@ -20,12 +21,12 @@ export class AuthenticateOngUseCase {
     const ong = await this.ongRepository.findByEmail(email)
 
     if (!ong) {
-      throw new Error()
+      throw new InvalidCrendetials()
     }
     const doesPasswordMatches = await compare(password, ong.password_hash)
 
     if (!doesPasswordMatches) {
-      throw new Error()
+      throw new InvalidCrendetials()
     }
     return {
       ong,

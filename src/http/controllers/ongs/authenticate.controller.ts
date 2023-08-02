@@ -1,4 +1,6 @@
+import { InvalidCrendetials } from '@/use-cases/errors/invalid-credentials-errors'
 import { makeAuthenticateOngUseCase } from '@/use-cases/factories/make-authenticate-ong-use-case'
+
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
@@ -14,15 +16,15 @@ export async function authenticate(
   const { email, password } = authenticateOngSchema.parse(request.body)
 
   try {
-    const createOngUseCase = makeAuthenticateOngUseCase()
+    const authenticateOngUseCase = makeAuthenticateOngUseCase()
 
-    await createOngUseCase.execute({
+    await authenticateOngUseCase.execute({
       email,
       password,
     })
   } catch (error) {
-    if (error === true) {
-      return reply.status(409).send({ message: 'Error' })
+    if (error instanceof InvalidCrendetials) {
+      return reply.status(409).send({ message: error.message })
     }
     throw error
   }
