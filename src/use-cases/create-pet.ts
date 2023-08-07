@@ -8,6 +8,7 @@ import {
   IdependenciesLevel,
   Pet,
 } from '@prisma/client'
+import { OngDoesNotExist } from './errors/ong-does-not-exist-errors'
 
 interface IPetUseCase {
   name: string
@@ -39,8 +40,9 @@ export class PetUseCase {
     ongId,
   }: IPetUseCase): Promise<IPetUseCaseResponse> {
     const ong = await this.ongsRepository.findById(ongId)
+
     if (!ong) {
-      throw new Error()
+      throw new OngDoesNotExist()
     }
 
     const pet = await this.petsRepository.create({

@@ -30,7 +30,7 @@ export class CreateOngsUseCase {
     const password_hash = await hash(password, 6)
 
     // verifica se ja existe o email
-    const userEithSameEmail = await this.ongRepository.findById(email)
+    const userEithSameEmail = await this.ongRepository.findByEmail(email)
 
     if (userEithSameEmail) {
       throw new UserAlreadyExists()

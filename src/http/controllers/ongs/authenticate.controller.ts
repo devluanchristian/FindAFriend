@@ -18,15 +18,23 @@ export async function authenticate(
   try {
     const authenticateOngUseCase = makeAuthenticateOngUseCase()
 
-    await authenticateOngUseCase.execute({
+    const { ong } = await authenticateOngUseCase.execute({
       email,
       password,
     })
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: ong.id,
+        },
+      },
+    )
+    return reply.status(200).send({ token })
   } catch (error) {
     if (error instanceof InvalidCrendetials) {
-      return reply.status(409).send({ message: error.message })
+      return reply.status(400).send({ message: error.message })
     }
     throw error
   }
-  return reply.status(201).send()
 }
