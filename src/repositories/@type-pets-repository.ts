@@ -12,17 +12,17 @@ export interface IFindManyParams {
   age?: Age
   dog_size?: Dog_Size
   energy_level?: Energy_Level
-  idependenciesLevel?: IdependenciesLevel
+  idependencies_Level?: IdependenciesLevel
 }
 export interface IPetsRepository {
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>
   findById(id: string): Promise<Pet | null>
-  findManyByCity({
+  findByManyCity({
     city,
     age,
     dog_size,
     energy_level,
-    idependenciesLevel,
+    idependencies_Level,
     name,
   }: IFindManyParams): Promise<Pet[]>
 }

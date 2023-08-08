@@ -2,30 +2,33 @@ import {
   IFindManyParams,
   IPetsRepository,
 } from '@/repositories/@type-pets-repository'
+
 import { Pet } from '@prisma/client'
 
-interface IGetPetFindManyByCityUseCaseResponse {
+interface IFindManyByCityOngPetUseCaseResponse {
   pets: Pet[]
 }
 
-export class GetPetFindManyByCityUseCase {
+export class FindManyByCityOngPetUseCase {
   constructor(private petRepository: IPetsRepository) {}
   async execute({
     city,
     age,
-    name,
     dog_size,
+    name,
     energy_level,
-    idependenciesLevel,
-  }: IFindManyParams): Promise<IGetPetFindManyByCityUseCaseResponse> {
-    const pets = await this.petRepository.findManyByCity({
+    idependencies_Level,
+  }: IFindManyParams): Promise<IFindManyByCityOngPetUseCaseResponse> {
+    const pets = await this.petRepository.findByManyCity({
       city,
       age,
-      name,
       dog_size,
+      name,
       energy_level,
-      idependenciesLevel,
+      idependencies_Level,
     })
-    return { pets }
+    return {
+      pets,
+    }
   }
 }
