@@ -28,7 +28,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
   try {
     const createOngUseCase = makeCreatePetUseCase()
 
-    const { pet } = await createOngUseCase.execute({
+    await createOngUseCase.execute({
       name,
       about,
       age,
@@ -37,11 +37,11 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
       idependencies_Level,
       ongId,
     })
-    return reply.status(201).send({ pet })
   } catch (error) {
     if (error instanceof OngDoesNotExist) {
       return reply.status(409).send({ message: error.message })
     }
     throw error
   }
+  return reply.status(201).send()
 }
