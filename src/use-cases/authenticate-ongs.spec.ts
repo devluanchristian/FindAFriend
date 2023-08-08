@@ -2,6 +2,7 @@ import { InMemoryOngsRepository } from '@/repositories/in-memory/in-memory-ongs-
 import { beforeEach, describe, expect, it } from 'vitest'
 import { AuthenticateOngUseCase } from './authenticate-ongs'
 import { hash } from 'bcryptjs'
+import { InvalidCrendetials } from './errors/invalid-credentials-errors'
 
 let ongRepository: InMemoryOngsRepository
 let sut: AuthenticateOngUseCase
@@ -28,5 +29,14 @@ describe('Authenticate Ong Use Case', async () => {
     })
 
     expect(ong.id).toEqual(expect.any(String))
+  })
+
+  it('should not be able to authenticate with wrong email', async () => {
+    await expect(() =>
+      sut.execute({
+        email: 'prisma@prisma.com',
+        password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(InvalidCrendetials)
   })
 })
