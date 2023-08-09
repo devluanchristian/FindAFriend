@@ -57,7 +57,7 @@ model Pet {
   idependencies_Level IdependenciesLevel
   created_at          DateTime           @default(now())
 
-  ong   Ong    @relation(fields: [ongId], references: [id])
+  ong   Ong    @relation(fields: [ongId], references: [id], onDelete: Cascade)
   ongId String
 
   @@map("pets")

@@ -26,9 +26,9 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     createPetsSchema.parse(request.body)
 
   try {
-    const createOngUseCase = makeCreatePetUseCase()
+    const createPetUseCase = makeCreatePetUseCase()
 
-    await createOngUseCase.execute({
+    await createPetUseCase.execute({
       name,
       about,
       age,
