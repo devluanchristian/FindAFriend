@@ -36,10 +36,30 @@ describe('Find Many By City Use Case', () => {
       ongId: 'ong-01',
       ong,
     })
+
+    await petRepository.create({
+      name: 'Spike',
+      about: 'Bem docil e brincalhona',
+      age: 'Jovem',
+      dog_size: 'Pequenino',
+      energy_level: 'Alta',
+      idependencies_Level: 'Medio',
+      ongId: 'ong-01',
+      ong,
+    })
     const { pets } = await sut.execute({
       city: 'Belo Horizonte',
+      dog_size: 'Grande',
     })
 
     expect(pets[0].id).toEqual(expect.any(String))
+  })
+
+  it('should not be able to to find a pet without a city', async () => {
+    expect(() =>
+      sut.execute({
+        city: 'Congonhas',
+      }),
+    ).toHaveLength(0)
   })
 })
