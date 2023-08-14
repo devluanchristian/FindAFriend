@@ -1,4 +1,3 @@
-import { prisma } from '@/lib/prisma'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import { makeGetPetUseCase } from '@/use-cases/factories/make-get-pet-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'

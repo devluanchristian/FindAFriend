@@ -10,7 +10,7 @@ describe('Authenticate login Ong (e2e)', () => {
     await app.close()
   })
 
-  it('should be albe to create ong', async () => {
+  it('should be able to authenticate login for ong', async () => {
     await request(app.server).post('/ong').send({
       name: 'Aprisco',
       address: 'rua cascais, Belo Horizonte',
